@@ -1,0 +1,98 @@
+.container {
+    width: 95%;
+}
+
+h5 {
+    margin-top: 35px;
+    margin-bottom: 18px;
+    font-weight: 600;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    border-radius: 12px;
+    color: white;
+    padding: 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .12);
+}
+
+.stat-card h6 {
+    margin: 0;
+    font-size: 15px;
+    opacity: .9;
+}
+
+.stat-card h3 {
+    margin-top: 10px;
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.stat-card i {
+    font-size: 48px;
+    opacity: .85;
+}
+
+.blue-card {
+    background: linear-gradient(135deg, #1976D2, #42A5F5);
+}
+
+.green-card {
+    background: linear-gradient(135deg, #2E7D32, #66BB6A);
+}
+
+.orange-card {
+    background: linear-gradient(135deg, #EF6C00, #FFA726);
+}
+
+.red-card {
+    background: linear-gradient(135deg, #C62828, #EF5350);
+}
+
+.purple-card {
+    background: linear-gradient(135deg, #6A1B9A, #AB47BC);
+}
+
+.teal-card {
+    background: linear-gradient(135deg, #00695C, #26A69A);
+}
+
+.card {
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .08);
+}
+
+.card-title {
+    font-weight: bold;
+}
+
+table {
+    margin-top: 15px;
+}
+
+td {
+    vertical-align: middle;
+}
+
+@media (max-width: 600px) {
+    .stat-card {
+        padding: 18px;
+    }
+
+    .stat-card h3 {
+        font-size: 26px;
+    }
+
+    .stat-card i {
+        font-size: 40px;
+    }
+}

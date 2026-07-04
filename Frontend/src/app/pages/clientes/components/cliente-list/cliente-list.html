@@ -1,0 +1,77 @@
+<div class="card z-depth-2">
+  <div class="card-content">
+    <div class="row valign-wrapper">
+      <div class="col s8">
+        <span class="card-title"> Clientes Registrados </span>
+<div class="input-field">
+
+    <input
+        type="text"
+        placeholder="Buscar cliente..."
+        [(ngModel)]="textoBusqueda"
+        (input)="buscar()">
+
+</div>
+        <p>
+          Total: <strong>{{ clientes.length }}</strong>
+        </p>
+      </div>
+
+      <div class="col s4 right-align">
+        <a class="btn blue" (click)="cargarClientes()">
+          <i class="material-icons left">refresh</i>
+          Actualizar
+        </a>
+      </div>
+    </div>
+
+    <div class="responsive-table">
+      <table class="highlight centered">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Documento</th>
+            <th>Teléfono</th>
+            <th>Correo</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+
+        <tbody>
+         @for(cliente of clientesFiltrados; track cliente._id) {
+            <tr>
+              <td>{{ cliente.nombre }}</td>
+              <td>{{ cliente.apellido }}</td>
+              <td>{{ cliente.documento }}</td>
+              <td>{{ cliente.telefono }}</td>
+              <td>{{ cliente.correo }}</td>
+
+              <td>
+                <a class="btn-small blue" (click)="editarCliente(cliente)">
+                  <i class="material-icons">edit</i>
+                </a>
+
+                &nbsp;
+
+                <a class="btn-small red" (click)="eliminarCliente(cliente)">
+                  <i class="material-icons">delete</i>
+                </a>
+              </td>
+            </tr>
+          }
+
+          @if(clientesFiltrados.length===0) {
+            <tr>
+              <td colspan="6">
+                <br />
+
+                <h6>No hay clientes registrados.</h6>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,108 @@
+<div class="card">
+
+    <div class="card-content">
+
+        <span class="card-title">
+
+    {{ modoEdicion ? 'Editar Mascota' : 'Nueva Mascota' }}
+
+</span>
+
+        <form [formGroup]="formulario" (ngSubmit)="guardar()">
+
+            <div class="input-field">
+
+                <input
+                    type="text"
+                    formControlName="nombre">
+
+                <label>Nombre</label>
+
+            </div>
+
+            <div class="input-field">
+
+                <input
+                    type="text"
+                    formControlName="especie">
+
+                <label>Especie</label>
+
+            </div>
+
+            <div class="input-field">
+
+                <input
+                    type="text"
+                    formControlName="raza">
+
+                <label>Raza</label>
+
+            </div>
+
+            <div class="input-field">
+
+                <input
+                    type="number"
+                    min="0"
+                    formControlName="edad">
+
+                <label>Edad</label>
+
+            </div>
+
+            <div class="input-field">
+
+                <select class="browser-default" formControlName="sexo">
+                    <option value="Macho">Macho</option>
+                    <option value="Hembra">Hembra</option>
+                </select>
+
+            </div>
+
+            <div class="input-field">
+
+                @if(cargandoClientes) {
+                    <p>Cargando clientes...</p>
+                }
+
+                <select
+                    class="browser-default"
+                    formControlName="cliente"
+                    [disabled]="cargandoClientes">
+                    <option value="" disabled>Seleccione un cliente</option>
+
+                    @for(cliente of clientes; track cliente._id) {
+                        <option [value]="cliente._id">
+                            {{ cliente.nombre }} {{ cliente.apellido }} - {{ cliente.documento }}
+                        </option>
+                    }
+                </select>
+
+            </div>
+
+            <div class="input-field">
+
+                <textarea
+                    class="materialize-textarea"
+                    formControlName="observaciones">
+                </textarea>
+
+                <label>Observaciones</label>
+
+            </div>
+
+            <button
+                class="btn blue"
+                type="submit"
+                [disabled]="cargandoClientes">
+
+                {{ modoEdicion ? 'Actualizar Mascota' : 'Guardar Mascota' }}
+
+            </button>
+
+        </form>
+
+    </div>
+
+</div>

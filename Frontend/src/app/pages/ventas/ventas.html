@@ -1,0 +1,55 @@
+<div class="container">
+
+    <h3 class="center">
+        Gestión de Ventas
+    </h3>
+
+    <div class="center">
+
+        <a
+            class="btn green"
+            (click)="abrirFormulario()">
+
+            <i class="material-icons left">add</i>
+
+            Nueva Venta
+
+        </a>
+
+    </div>
+
+    <br>
+
+    @if(mostrarFormulario){
+
+    <app-venta-form
+
+    (ventaGuardada)="actualizarLista()">
+
+</app-venta-form>
+
+    <br>
+
+    <div class="center">
+
+        <a
+            class="btn grey"
+            (click)="cerrarFormulario()">
+
+            Cancelar
+
+        </a>
+
+    </div>
+
+    <br>
+
+    }
+
+    <app-venta-list
+
+    (anulada)="actualizarLista()">
+
+</app-venta-list>
+
+</div>

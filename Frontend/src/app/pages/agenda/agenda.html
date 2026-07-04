@@ -1,0 +1,57 @@
+<div class="container">
+
+    <h3 class="center">
+        Gestión de Agenda
+    </h3>
+
+    <div class="center">
+
+        <a
+            class="btn green"
+            (click)="abrirFormulario()">
+
+            <i class="material-icons left">add</i>
+
+            Nueva Cita
+
+        </a>
+
+    </div>
+
+    <br>
+
+    @if(mostrarFormulario){
+
+    <app-agenda-form
+
+    [citaEditar]="citaSeleccionada"
+
+    (citaGuardada)="actualizarLista()">
+
+</app-agenda-form>
+
+    <br>
+
+    <div class="center">
+
+        <a
+            class="btn grey"
+            (click)="cerrarFormulario()">
+
+            Cancelar
+
+        </a>
+
+    </div>
+
+    <br>
+
+    }
+
+    <app-agenda-list
+
+    (editar)="editarCita($event)">
+
+</app-agenda-list>
+
+</div>

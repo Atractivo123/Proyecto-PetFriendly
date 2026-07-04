@@ -1,0 +1,27 @@
+.card {
+    border-radius: 12px;
+}
+
+.card-title {
+    font-weight: bold;
+}
+
+table {
+    margin-top: 20px;
+}
+
+.btn-small {
+    margin: 2px;
+}
+
+td {
+    vertical-align: middle;
+}
+
+h6 {
+    color: #757575;
+}
+
+.responsive-table {
+    overflow-x: auto;
+}

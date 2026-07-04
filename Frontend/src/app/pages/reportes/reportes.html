@@ -1,0 +1,359 @@
+<div class="container">
+
+    <h3 class="center">
+        Reportes
+    </h3>
+
+    <div class="center">
+        <a
+            class="btn blue"
+            (click)="cargarReportes()">
+
+            <i class="material-icons left">refresh</i>
+
+            Actualizar Reportes
+
+        </a>
+    </div>
+
+    <br>
+
+    @if(cargando && !reportesCargados) {
+        <div class="card">
+            <div class="card-content center">
+                <span class="card-title">Cargando reportes...</span>
+            </div>
+        </div>
+    }
+
+    @if(error) {
+        <div class="card red lighten-4">
+            <div class="card-content">
+                {{ error }}
+            </div>
+        </div>
+    }
+
+    @if(reporteDashboard) {
+
+        <h5>Dashboard General</h5>
+
+        <div class="stats">
+
+            <div class="stat-card blue-card">
+                <div>
+                    <h6>Clientes</h6>
+                    <h3>{{ reporteDashboard.totalClientes }}</h3>
+                </div>
+                <i class="material-icons">people</i>
+            </div>
+
+            <div class="stat-card green-card">
+                <div>
+                    <h6>Mascotas</h6>
+                    <h3>{{ reporteDashboard.totalMascotas }}</h3>
+                </div>
+                <i class="material-icons">pets</i>
+            </div>
+
+            <div class="stat-card orange-card">
+                <div>
+                    <h6>Citas</h6>
+                    <h3>{{ reporteDashboard.totalCitas }}</h3>
+                </div>
+                <i class="material-icons">event</i>
+            </div>
+
+            <div class="stat-card red-card">
+                <div>
+                    <h6>Productos</h6>
+                    <h3>{{ reporteDashboard.totalProductos }}</h3>
+                </div>
+                <i class="material-icons">assignment</i>
+            </div>
+
+            <div class="stat-card purple-card">
+                <div>
+                    <h6>Ventas</h6>
+                    <h3>{{ reporteDashboard.totalVentas }}</h3>
+                </div>
+                <i class="material-icons">shopping_cart</i>
+            </div>
+
+            <div class="stat-card teal-card">
+                <div>
+                    <h6>Ingresos</h6>
+                    <h3>{{ reporteDashboard.ingresosTotales | currency:'COP':'symbol':'1.0-0' }}</h3>
+                </div>
+                <i class="material-icons">attach_money</i>
+            </div>
+
+        </div>
+
+    }
+
+    @if(reporteVentas) {
+
+        <h5>Ventas</h5>
+
+        <div class="row">
+
+            <div class="col s12 m4">
+                <div class="card">
+                    <div class="card-content center">
+                        <span class="card-title">Ventas Pagadas</span>
+                        <h4>{{ reporteVentas.totalVentas }}</h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col s12 m4">
+                <div class="card">
+                    <div class="card-content center">
+                        <span class="card-title">Ventas Anuladas</span>
+                        <h4>{{ reporteVentas.ventasAnuladas }}</h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col s12 m4">
+                <div class="card">
+                    <div class="card-content center">
+                        <span class="card-title">Ingresos Totales</span>
+                        <h4>{{ reporteVentas.ingresosTotales | currency:'COP':'symbol':'1.0-0' }}</h4>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title">Ventas por Metodo de Pago</span>
+
+                <table class="highlight centered">
+                    <thead>
+                        <tr>
+                            <th>Metodo</th>
+                            <th>Total Ventas</th>
+                            <th>Ingresos</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @for(metodo of reporteVentas.ventasPorMetodoPago; track metodo._id) {
+                            <tr>
+                                <td>{{ metodo._id }}</td>
+                                <td>{{ metodo.totalVentas }}</td>
+                                <td>{{ metodo.ingresos | currency:'COP':'symbol':'1.0-0' }}</td>
+                            </tr>
+                        }
+
+                        @if(reporteVentas.ventasPorMetodoPago.length === 0) {
+                            <tr>
+                                <td colspan="3">No hay datos de ventas.</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    }
+
+    @if(reporteInventario) {
+
+        <h5>Inventario</h5>
+
+        <div class="row">
+
+            <div class="col s12 m3">
+                <div class="card">
+                    <div class="card-content center">
+                        <span class="card-title">Productos</span>
+                        <h4>{{ reporteInventario.totalProductos }}</h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col s12 m3">
+                <div class="card">
+                    <div class="card-content center">
+                        <span class="card-title">Activos</span>
+                        <h4>{{ reporteInventario.productosActivos }}</h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col s12 m3">
+                <div class="card">
+                    <div class="card-content center">
+                        <span class="card-title">Inactivos</span>
+                        <h4>{{ reporteInventario.productosInactivos }}</h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col s12 m3">
+                <div class="card">
+                    <div class="card-content center">
+                        <span class="card-title">Sin Stock</span>
+                        <h4>{{ reporteInventario.totalSinStock }}</h4>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title">Productos con Bajo Stock</span>
+
+                <table class="highlight centered">
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Categoria</th>
+                            <th>Stock</th>
+                            <th>Stock Minimo</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @for(producto of reporteInventario.productosBajoStock; track producto._id) {
+                            <tr>
+                                <td>{{ producto.nombre }}</td>
+                                <td>{{ producto.categoria }}</td>
+                                <td>{{ producto.stock }}</td>
+                                <td>{{ producto.stockMinimo }}</td>
+                            </tr>
+                        }
+
+                        @if(reporteInventario.productosBajoStock.length === 0) {
+                            <tr>
+                                <td colspan="4">No hay productos con bajo stock.</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    }
+
+    @if(reporteAgenda) {
+
+        <h5>Agenda</h5>
+
+        <div class="row">
+
+            <div class="col s12 m3">
+                <div class="card">
+                    <div class="card-content center">
+                        <span class="card-title">Pendientes</span>
+                        <h4>{{ reporteAgenda.citasPendientes }}</h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col s12 m3">
+                <div class="card">
+                    <div class="card-content center">
+                        <span class="card-title">Confirmadas</span>
+                        <h4>{{ reporteAgenda.citasConfirmadas }}</h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col s12 m3">
+                <div class="card">
+                    <div class="card-content center">
+                        <span class="card-title">Atendidas</span>
+                        <h4>{{ reporteAgenda.citasAtendidas }}</h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col s12 m3">
+                <div class="card">
+                    <div class="card-content center">
+                        <span class="card-title">Canceladas</span>
+                        <h4>{{ reporteAgenda.citasCanceladas }}</h4>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    }
+
+    @if(reporteClientes) {
+
+        <h5>Clientes y Mascotas</h5>
+
+        <div class="row">
+
+            <div class="col s12 m4">
+                <div class="card">
+                    <div class="card-content center">
+                        <span class="card-title">Clientes</span>
+                        <h4>{{ reporteClientes.totalClientes }}</h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col s12 m4">
+                <div class="card">
+                    <div class="card-content center">
+                        <span class="card-title">Mascotas</span>
+                        <h4>{{ reporteClientes.totalMascotas }}</h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col s12 m4">
+                <div class="card">
+                    <div class="card-content center">
+                        <span class="card-title">Promedio Mascotas</span>
+                        <h4>{{ reporteClientes.promedioMascotasPorCliente }}</h4>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title">Clientes con Mas Mascotas</span>
+
+                <table class="highlight centered">
+                    <thead>
+                        <tr>
+                            <th>Cliente</th>
+                            <th>Documento</th>
+                            <th>Total Mascotas</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @for(cliente of reporteClientes.clientesConMasMascotas; track cliente.clienteId) {
+                            <tr>
+                                <td>{{ cliente.nombre }} {{ cliente.apellido }}</td>
+                                <td>{{ cliente.documento }}</td>
+                                <td>{{ cliente.totalMascotas }}</td>
+                            </tr>
+                        }
+
+                        @if(reporteClientes.clientesConMasMascotas.length === 0) {
+                            <tr>
+                                <td colspan="3">No hay datos de clientes con mascotas.</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    }
+
+</div>

@@ -1,0 +1,248 @@
+<div class="dashboard-header">
+
+    <div>
+
+        <h3>
+
+            {{ saludo }}, {{ usuario }}
+
+        </h3>
+
+        <p class="fecha">
+
+            {{ fechaActual | date:'fullDate' }}
+
+        </p>
+
+        <p>
+
+            Bienvenido al sistema de gestion veterinaria PetFriendly.
+
+        </p>
+
+    </div>
+
+</div>
+
+@if(cargando) {
+    <div class="card">
+        <div class="card-content center">
+            <span class="card-title">Cargando dashboard...</span>
+        </div>
+    </div>
+}
+
+@if(error) {
+    <div class="card red lighten-4">
+        <div class="card-content">
+            {{ error }}
+        </div>
+    </div>
+}
+
+<div class="stats">
+
+    <div class="stat-card blue-card">
+
+        <div>
+
+            <h6>Clientes</h6>
+
+            <h3>{{ totalClientes }}</h3>
+
+        </div>
+
+        <i class="material-icons">people</i>
+
+    </div>
+
+    <div class="stat-card green-card">
+
+        <div>
+
+            <h6>Mascotas</h6>
+
+            <h3>{{ totalMascotas }}</h3>
+
+        </div>
+
+        <i class="material-icons">pets</i>
+
+    </div>
+
+    <div class="stat-card orange-card">
+
+        <div>
+
+            <h6>Citas</h6>
+
+            <h3>{{ totalAgenda }}</h3>
+
+        </div>
+
+        <i class="material-icons">event</i>
+
+    </div>
+
+    <div class="stat-card red-card">
+
+        <div>
+
+            <h6>Inventario</h6>
+
+            <h3>{{ totalInventario }}</h3>
+
+        </div>
+
+        <i class="material-icons">assignment</i>
+
+    </div>
+
+    <div class="stat-card purple-card">
+
+        <div>
+
+            <h6>Ventas</h6>
+
+            <h3>{{ totalVentas }}</h3>
+
+        </div>
+
+        <i class="material-icons">shopping_cart</i>
+
+    </div>
+
+    <div class="stat-card teal-card">
+
+        <div>
+
+            <h6>Ingresos</h6>
+
+            <h3>{{ ingresosTotales | currency:'COP':'symbol-narrow':'1.0-0' }}</h3>
+
+        </div>
+
+        <i class="material-icons">trending_up</i>
+
+    </div>
+
+</div>
+
+<div class="quick-actions">
+
+    <button class="btn blue" routerLink="/clientes">
+
+        <i class="material-icons left">person_add</i>
+
+        Nuevo Cliente
+
+    </button>
+
+    <button class="btn green" routerLink="/mascotas">
+
+        <i class="material-icons left">pets</i>
+
+        Nueva Mascota
+
+    </button>
+
+    <button class="btn orange" routerLink="/ventas">
+
+        <i class="material-icons left">shopping_cart</i>
+
+        Nueva Venta
+
+    </button>
+
+    <button class="btn purple" routerLink="/agenda">
+
+        <i class="material-icons">event</i>
+
+        <span>Nueva Cita</span>
+
+    </button>
+
+</div>
+
+<div class="row">
+
+    <div class="col s12 l8">
+
+        <div class="card">
+
+            <div class="card-content">
+
+                <span class="card-title">
+
+                    Actividad reciente
+
+                </span>
+
+                <ul class="collection">
+
+                    @for(item of actividad; track item.descripcion) {
+                        <li class="collection-item">
+                            {{ item.descripcion }}
+
+                            @if(item.fecha) {
+                                <br>
+                                <small>{{ item.fecha | date:'short' }}</small>
+                            }
+                        </li>
+                    }
+
+                    @if(actividad.length === 0) {
+                        <li class="collection-item">
+                            No hay actividad reciente para mostrar.
+                        </li>
+                    }
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col s12 l4">
+
+        <div class="card">
+
+            <div class="card-content">
+
+                <span class="card-title">
+
+                    Proximas citas
+
+                </span>
+
+                <ul class="collection">
+
+                    @for(cita of proximasCitas; track cita.fecha + cita.hora + cita.mascota) {
+                        <li class="collection-item">
+                            <strong>{{ cita.mascota }}</strong>
+                            <br>
+                            <span>{{ cita.cliente }}</span>
+                            <br>
+                            <small>
+                                {{ cita.fecha | date:'shortDate' }} - {{ cita.hora }}
+                            </small>
+                        </li>
+                    }
+
+                    @if(proximasCitas.length === 0) {
+                        <li class="collection-item">
+                            No hay citas proximas.
+                        </li>
+                    }
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

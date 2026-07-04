@@ -1,0 +1,145 @@
+<div class="card">
+
+    <div class="card-content">
+
+        <span class="card-title">
+
+    {{ modoEdicion ? 'Editar Cita' : 'Nueva Cita' }}
+
+</span>
+
+        <form [formGroup]="formulario" (ngSubmit)="guardar()">
+
+            <div class="input-field">
+
+                @if(cargandoClientes) {
+                    <p>Cargando clientes...</p>
+                }
+
+                <select
+                    class="browser-default"
+                    formControlName="cliente"
+                    [disabled]="cargandoClientes">
+
+                    <option value="" disabled>
+                        Seleccione un cliente
+                    </option>
+
+                    @for(cliente of clientes; track cliente._id) {
+
+                        <option [value]="cliente._id">
+
+                            {{ cliente.nombre }} {{ cliente.apellido }} - {{ cliente.documento }}
+
+                        </option>
+
+                    }
+
+                </select>
+
+            </div>
+
+            <div class="input-field">
+
+                @if(cargandoMascotas) {
+                    <p>Cargando mascotas...</p>
+                }
+
+                <select
+                    class="browser-default"
+                    formControlName="mascota"
+                    [disabled]="cargandoMascotas || !formulario.controls.cliente.value">
+
+                    <option value="" disabled>
+                        Seleccione una mascota
+                    </option>
+
+                    @for(mascota of mascotasFiltradas; track mascota._id) {
+
+                        <option [value]="mascota._id">
+
+                            {{ mascota.nombre }} - {{ mascota.especie }}
+
+                        </option>
+
+                    }
+
+                </select>
+
+            </div>
+
+            <div class="input-field">
+
+                <input
+                    type="date"
+                    formControlName="fecha">
+
+                <label>Fecha</label>
+
+            </div>
+
+            <div class="input-field">
+
+                <input
+                    type="time"
+                    formControlName="hora">
+
+                <label>Hora</label>
+
+            </div>
+
+            <div class="input-field">
+
+                <input
+                    type="text"
+                    formControlName="motivo">
+
+                <label>Motivo</label>
+
+            </div>
+
+            <div class="input-field">
+
+                <select
+                    class="browser-default"
+                    formControlName="estado">
+
+                    @for(estado of estados; track estado) {
+
+                        <option [value]="estado">
+
+                            {{ estado }}
+
+                        </option>
+
+                    }
+
+                </select>
+
+            </div>
+
+            <div class="input-field">
+
+                <textarea
+                    class="materialize-textarea"
+                    formControlName="observaciones">
+                </textarea>
+
+                <label>Observaciones</label>
+
+            </div>
+
+            <button
+                class="btn blue"
+                type="submit"
+                [disabled]="cargandoClientes || cargandoMascotas">
+
+                {{ modoEdicion ? 'Actualizar Cita' : 'Guardar Cita' }}
+
+            </button>
+
+        </form>
+
+    </div>
+
+</div>

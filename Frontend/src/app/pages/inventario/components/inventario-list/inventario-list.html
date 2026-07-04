@@ -1,0 +1,85 @@
+<div class="card z-depth-2">
+  <div class="card-content">
+    <div class="row valign-wrapper">
+      <div class="col s8">
+        <span class="card-title"> Productos Registrados </span>
+
+        <div class="input-field">
+
+          <input
+            type="text"
+            placeholder="Buscar producto..."
+            [(ngModel)]="textoBusqueda"
+            (input)="buscar()">
+
+        </div>
+
+        <p>
+          Total: <strong>{{ productos.length }}</strong>
+        </p>
+      </div>
+
+      <div class="col s4 right-align">
+        <a class="btn blue" (click)="cargarInventario()">
+          <i class="material-icons left">refresh</i>
+          Actualizar
+        </a>
+      </div>
+    </div>
+
+    <div class="responsive-table">
+      <table class="highlight centered">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Categoría</th>
+            <th>Precio</th>
+            <th>Stock</th>
+            <th>Stock mínimo</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+
+        <tbody>
+         @for(producto of productosFiltrados; track producto._id) {
+            <tr>
+              <td>{{ producto.nombre }}</td>
+              <td>{{ producto.categoria }}</td>
+              <td>{{ producto.precio | currency:'COP':'symbol':'1.0-0' }}</td>
+              <td>
+                <span [class.red-text]="producto.stock <= producto.stockMinimo">
+                  {{ producto.stock }}
+                </span>
+              </td>
+              <td>{{ producto.stockMinimo }}</td>
+              <td>{{ producto.estado }}</td>
+
+              <td>
+                <a class="btn-small blue" (click)="editarProducto(producto)">
+                  <i class="material-icons">edit</i>
+                </a>
+
+                &nbsp;
+
+                <a class="btn-small red" (click)="eliminarProducto(producto)">
+                  <i class="material-icons">delete</i>
+                </a>
+              </td>
+            </tr>
+          }
+
+          @if(productosFiltrados.length===0) {
+            <tr>
+              <td colspan="7">
+                <br />
+
+                <h6>No hay productos registrados.</h6>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

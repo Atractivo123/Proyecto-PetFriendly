@@ -1,0 +1,81 @@
+<div class="card z-depth-2">
+  <div class="card-content">
+    <div class="row valign-wrapper">
+      <div class="col s8">
+        <span class="card-title"> Mascotas Registradas </span>
+
+        <div class="input-field">
+
+          <input
+            type="text"
+            placeholder="Buscar mascota..."
+            [(ngModel)]="textoBusqueda"
+            (input)="buscar()">
+
+        </div>
+
+        <p>
+          Total: <strong>{{ mascotas.length }}</strong>
+        </p>
+      </div>
+
+      <div class="col s4 right-align">
+        <a class="btn blue" (click)="cargarMascotas()">
+          <i class="material-icons left">refresh</i>
+          Actualizar
+        </a>
+      </div>
+    </div>
+
+    <div class="responsive-table">
+      <table class="highlight centered">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Especie</th>
+            <th>Raza</th>
+            <th>Edad</th>
+            <th>Sexo</th>
+            <th>Cliente</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+
+        <tbody>
+         @for(mascota of mascotasFiltradas; track mascota._id) {
+            <tr>
+              <td>{{ mascota.nombre }}</td>
+              <td>{{ mascota.especie }}</td>
+              <td>{{ mascota.raza || 'Sin registrar' }}</td>
+              <td>{{ mascota.edad ?? 'Sin registrar' }}</td>
+              <td>{{ mascota.sexo }}</td>
+              <td>{{ obtenerNombreCliente(mascota.cliente) }}</td>
+
+              <td>
+                <a class="btn-small blue" (click)="editarMascota(mascota)">
+                  <i class="material-icons">edit</i>
+                </a>
+
+                &nbsp;
+
+                <a class="btn-small red" (click)="eliminarMascota(mascota)">
+                  <i class="material-icons">delete</i>
+                </a>
+              </td>
+            </tr>
+          }
+
+          @if(mascotasFiltradas.length===0) {
+            <tr>
+              <td colspan="7">
+                <br />
+
+                <h6>No hay mascotas registradas.</h6>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

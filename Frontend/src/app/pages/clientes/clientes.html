@@ -1,0 +1,57 @@
+<div class="container">
+
+    <h3 class="center">
+        Gestión de Clientes
+    </h3>
+
+    <div class="center">
+
+        <a
+            class="btn green"
+            (click)="abrirFormulario()">
+
+            <i class="material-icons left">add</i>
+
+            Nuevo Cliente
+
+        </a>
+
+    </div>
+
+    <br>
+
+    @if(mostrarFormulario){
+
+    <app-cliente-form
+
+    [clienteEditar]="clienteSeleccionado"
+
+    (clienteGuardado)="actualizarLista()">
+
+</app-cliente-form>
+
+    <br>
+
+    <div class="center">
+
+        <a
+            class="btn grey"
+            (click)="cerrarFormulario()">
+
+            Cancelar
+
+        </a>
+
+    </div>
+
+    <br>
+
+    }
+
+    <app-cliente-list
+
+    (editar)="editarCliente($event)">
+
+</app-cliente-list>
+
+</div>

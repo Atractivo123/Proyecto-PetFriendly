@@ -1,0 +1,57 @@
+<div class="container">
+
+    <h3 class="center">
+        Gestión de Inventario
+    </h3>
+
+    <div class="center">
+
+        <a
+            class="btn green"
+            (click)="abrirFormulario()">
+
+            <i class="material-icons left">add</i>
+
+            Nuevo Producto
+
+        </a>
+
+    </div>
+
+    <br>
+
+    @if(mostrarFormulario){
+
+    <app-inventario-form
+
+    [productoEditar]="productoSeleccionado"
+
+    (productoGuardado)="actualizarLista()">
+
+</app-inventario-form>
+
+    <br>
+
+    <div class="center">
+
+        <a
+            class="btn grey"
+            (click)="cerrarFormulario()">
+
+            Cancelar
+
+        </a>
+
+    </div>
+
+    <br>
+
+    }
+
+    <app-inventario-list
+
+    (editar)="editarProducto($event)">
+
+</app-inventario-list>
+
+</div>

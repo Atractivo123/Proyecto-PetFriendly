@@ -1,0 +1,97 @@
+<div class="card">
+
+    <div class="card-content">
+
+        <span class="card-title">
+
+    {{ modoEdicion ? 'Editar Cliente' : 'Nuevo Cliente' }}
+
+</span>
+
+        <form [formGroup]="formulario" (ngSubmit)="guardar()">
+
+    <div class="row">
+
+        <div class="input-field col s12 m6">
+
+            <input
+                type="text"
+                formControlName="nombre">
+
+            <label>Nombre</label>
+
+        </div>
+
+        <div class="input-field col s12 m6">
+
+            <input
+                type="text"
+                formControlName="apellido">
+
+            <label>Apellido</label>
+
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="input-field col s12 m6">
+
+            <input
+                type="text"
+                formControlName="documento">
+
+            <label>Documento</label>
+
+        </div>
+
+        <div class="input-field col s12 m6">
+
+            <input
+                type="text"
+                formControlName="telefono">
+
+            <label>Teléfono</label>
+
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="input-field col s12 m6">
+
+            <input
+                type="email"
+                formControlName="correo">
+
+            <label>Correo</label>
+
+        </div>
+
+        <div class="input-field col s12 m6">
+
+            <input
+                type="text"
+                formControlName="direccion">
+
+            <label>Dirección</label>
+
+        </div>
+
+    </div>
+
+    <button
+        class="btn blue"
+        type="submit">
+
+        {{ modoEdicion ? 'Actualizar Cliente' : 'Guardar Cliente' }}
+
+    </button>
+
+</form>
+
+    </div>
+
+</div>

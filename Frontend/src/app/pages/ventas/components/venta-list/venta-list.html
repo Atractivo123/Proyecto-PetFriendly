@@ -1,0 +1,85 @@
+<div class="card z-depth-2">
+  <div class="card-content">
+    <div class="row valign-wrapper">
+      <div class="col s8">
+        <span class="card-title"> Ventas Registradas </span>
+
+        <div class="input-field">
+
+          <input
+            type="text"
+            placeholder="Buscar venta..."
+            [(ngModel)]="textoBusqueda"
+            (input)="buscar()">
+
+        </div>
+
+        <p>
+          Total: <strong>{{ ventas.length }}</strong>
+        </p>
+      </div>
+
+      <div class="col s4 right-align">
+        <a class="btn blue" (click)="cargarVentas()">
+          <i class="material-icons left">refresh</i>
+          Actualizar
+        </a>
+      </div>
+    </div>
+
+    <div class="responsive-table">
+      <table class="highlight centered">
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Cliente</th>
+            <th>Productos</th>
+            <th>Total</th>
+            <th>Método</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+
+        <tbody>
+         @for(venta of ventasFiltradas; track venta._id) {
+            <tr>
+              <td>{{ venta.fechaVenta | date:'dd/MM/yyyy' }}</td>
+              <td>{{ obtenerNombreCliente(venta.cliente) }}</td>
+              <td>{{ obtenerResumenProductos(venta) }}</td>
+              <td>{{ venta.total | currency:'COP':'symbol':'1.0-0' }}</td>
+              <td>{{ venta.metodoPago }}</td>
+              <td>
+                <span [class.red-text]="venta.estado === 'Anulada'">
+                  {{ venta.estado }}
+                </span>
+              </td>
+
+              <td>
+                @if(venta.estado !== 'Anulada') {
+                  <a class="btn-small orange" (click)="anularVenta(venta)">
+                    <i class="material-icons">block</i>
+                  </a>
+                }
+
+                @if(venta.estado === 'Anulada') {
+                  <span class="grey-text">Anulada</span>
+                }
+              </td>
+            </tr>
+          }
+
+          @if(ventasFiltradas.length===0) {
+            <tr>
+              <td colspan="7">
+                <br />
+
+                <h6>No hay ventas registradas.</h6>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

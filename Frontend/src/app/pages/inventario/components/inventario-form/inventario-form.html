@@ -1,0 +1,119 @@
+<div class="card">
+
+    <div class="card-content">
+
+        <span class="card-title">
+
+    {{ modoEdicion ? 'Editar Producto' : 'Nuevo Producto' }}
+
+</span>
+
+        <form [formGroup]="formulario" (ngSubmit)="guardar()">
+
+            <div class="input-field">
+
+                <input
+                    type="text"
+                    formControlName="nombre">
+
+                <label>Nombre</label>
+
+            </div>
+
+            <div class="input-field">
+
+                <select
+                    class="browser-default"
+                    formControlName="categoria">
+
+                    @for(categoria of categorias; track categoria) {
+
+                        <option [value]="categoria">
+
+                            {{ categoria }}
+
+                        </option>
+
+                    }
+
+                </select>
+
+            </div>
+
+            <div class="input-field">
+
+                <textarea
+                    class="materialize-textarea"
+                    formControlName="descripcion">
+                </textarea>
+
+                <label>Descripción</label>
+
+            </div>
+
+            <div class="input-field">
+
+                <input
+                    type="number"
+                    min="0"
+                    formControlName="precio">
+
+                <label>Precio</label>
+
+            </div>
+
+            <div class="input-field">
+
+                <input
+                    type="number"
+                    min="0"
+                    formControlName="stock">
+
+                <label>Stock</label>
+
+            </div>
+
+            <div class="input-field">
+
+                <input
+                    type="number"
+                    min="0"
+                    formControlName="stockMinimo">
+
+                <label>Stock mínimo</label>
+
+            </div>
+
+            <div class="input-field">
+
+                <select
+                    class="browser-default"
+                    formControlName="estado">
+
+                    @for(estado of estados; track estado) {
+
+                        <option [value]="estado">
+
+                            {{ estado }}
+
+                        </option>
+
+                    }
+
+                </select>
+
+            </div>
+
+            <button
+                class="btn blue"
+                type="submit">
+
+                {{ modoEdicion ? 'Actualizar Producto' : 'Guardar Producto' }}
+
+            </button>
+
+        </form>
+
+    </div>
+
+</div>

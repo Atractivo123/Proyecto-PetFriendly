@@ -1,0 +1,57 @@
+<div class="container">
+
+    <h3 class="center">
+        Gestión de Mascotas
+    </h3>
+
+    <div class="center">
+
+        <a
+            class="btn green"
+            (click)="abrirFormulario()">
+
+            <i class="material-icons left">add</i>
+
+            Nueva Mascota
+
+        </a>
+
+    </div>
+
+    <br>
+
+    @if(mostrarFormulario){
+
+    <app-mascota-form
+
+    [mascotaEditar]="mascotaSeleccionada"
+
+    (mascotaGuardada)="actualizarLista()">
+
+</app-mascota-form>
+
+    <br>
+
+    <div class="center">
+
+        <a
+            class="btn grey"
+            (click)="cerrarFormulario()">
+
+            Cancelar
+
+        </a>
+
+    </div>
+
+    <br>
+
+    }
+
+    <app-mascota-list
+
+    (editar)="editarMascota($event)">
+
+</app-mascota-list>
+
+</div>

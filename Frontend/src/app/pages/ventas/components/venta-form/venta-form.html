@@ -1,0 +1,179 @@
+<div class="card">
+
+    <div class="card-content">
+
+        <span class="card-title">
+            Nueva Venta
+        </span>
+
+        <form [formGroup]="formulario" (ngSubmit)="guardar()">
+
+            <div class="input-field">
+
+                @if(cargandoClientes) {
+                    <p>Cargando clientes...</p>
+                }
+
+                <select
+                    class="browser-default"
+                    formControlName="cliente"
+                    [disabled]="cargandoClientes">
+
+                    <option value="" disabled>
+                        Seleccione un cliente
+                    </option>
+
+                    @for(cliente of clientes; track cliente._id) {
+
+                        <option [value]="cliente._id">
+                            {{ cliente.nombre }} {{ cliente.apellido }} - {{ cliente.documento }}
+                        </option>
+
+                    }
+
+                </select>
+
+            </div>
+
+            <div class="input-field">
+
+                <select
+                    class="browser-default"
+                    formControlName="metodoPago">
+
+                    @for(metodo of metodosPago; track metodo) {
+
+                        <option [value]="metodo">
+                            {{ metodo }}
+                        </option>
+
+                    }
+
+                </select>
+
+            </div>
+
+            <div formArrayName="productos">
+
+                @for(productoForm of productos.controls; track $index) {
+
+                    <div
+                        class="producto-row"
+                        [formGroupName]="$index">
+
+                        <div class="input-field">
+
+                            @if(cargandoProductos) {
+                                <p>Cargando productos...</p>
+                            }
+
+                            <select
+                                class="browser-default"
+                                formControlName="producto"
+                                [disabled]="cargandoProductos">
+
+                                <option value="" disabled>
+                                    Seleccione un producto
+                                </option>
+
+                                @for(producto of productosInventario; track producto._id) {
+
+                                    <option [value]="producto._id">
+                                        {{ producto.nombre }} - Stock: {{ producto.stock }} - {{ producto.precio | currency:'COP':'symbol':'1.0-0' }}
+                                    </option>
+
+                                }
+
+                            </select>
+
+                        </div>
+
+                        <div class="input-field">
+
+                            <input
+                                type="number"
+                                min="1"
+                                formControlName="cantidad">
+
+                            <label>Cantidad</label>
+
+                        </div>
+
+                        <p>
+                            Stock disponible:
+                            <strong>{{ obtenerStock($index) }}</strong>
+                        </p>
+
+                        <p>
+                            Precio unitario:
+                            <strong>{{ obtenerPrecio($index) | currency:'COP':'symbol':'1.0-0' }}</strong>
+                        </p>
+
+                        <p>
+                            Subtotal:
+                            <strong>{{ obtenerSubtotal($index) | currency:'COP':'symbol':'1.0-0' }}</strong>
+                        </p>
+
+                        @if(productos.length > 1) {
+
+                            <a
+                                class="btn-small red"
+                                (click)="eliminarProducto($index)">
+
+                                <i class="material-icons">delete</i>
+
+                            </a>
+
+                        }
+
+                    </div>
+
+                }
+
+            </div>
+
+            <div class="center">
+
+                <a
+                    class="btn grey"
+                    (click)="agregarProducto()">
+
+                    <i class="material-icons left">add</i>
+
+                    Agregar Producto
+
+                </a>
+
+            </div>
+
+            <br>
+
+            <div class="input-field">
+
+                <textarea
+                    class="materialize-textarea"
+                    formControlName="observaciones">
+                </textarea>
+
+                <label>Observaciones</label>
+
+            </div>
+
+            <h5 class="right-align">
+                Total: {{ obtenerTotal() | currency:'COP':'symbol':'1.0-0' }}
+            </h5>
+
+            <button
+                class="btn blue"
+                type="submit"
+                [disabled]="cargandoClientes || cargandoProductos">
+
+                Guardar Venta
+
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
