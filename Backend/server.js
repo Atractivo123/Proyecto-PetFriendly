@@ -7,6 +7,11 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const clienteRoutes = require('./routes/cliente.routes');
 const dashboardRoutes = require('./routes/dashboard.routes');
+const mascotaRoutes = require('./routes/mascota.routes');
+const agendaRoutes = require('./routes/agenda.routes');
+const inventarioRoutes = require('./routes/inventario.routes');
+const ventaRoutes = require('./routes/venta.routes');
+const reporteRoutes = require('./routes/reporte.routes');
 const app = express();
 
 // Middlewares
@@ -16,6 +21,11 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use('/api/clientes', clienteRoutes);
 app.use('/api/dashboard', dashboardRoutes);
+app.use('/api/mascotas', mascotaRoutes);
+app.use('/api/agenda', agendaRoutes);
+app.use('/api/inventario', inventarioRoutes);
+app.use('/api/ventas', ventaRoutes);
+app.use('/api/reportes', reporteRoutes);
 
 // Ruta de prueba
 app.get('/', (req, res) => {
