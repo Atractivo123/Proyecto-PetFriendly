@@ -118,3 +118,5 @@ PetFriendly/
 Este proyecto fue desarrollado por **Juan Manuel Diaz y su equipo de trabajo**.
 ## 📄 Licencia
 ISC
+## Nota:
+Al ejecutar npm audit en el Frontend puede aparecer una vulnerabilidad moderada asociada a la dependencia materialize-css. Actualmente no existe una actualización oficial que la corrija (No fix available). Esta vulnerabilidad pertenece a la librería de terceros y no al código de la aplicación.
